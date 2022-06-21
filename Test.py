@@ -32,7 +32,7 @@ if test1d:
      plt.plot(d, a)
      plt.show()
 else:
-     dic,data=ng.bruker.read('T1T1')
+     dic,data=ng.bruker.read('T1T2')
      data=data[:,50:,69:]
      data=-np.real(np.trapz(data,axis=-1))
      t1delay = np.loadtxt('T1T2/vdlist')
