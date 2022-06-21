@@ -46,5 +46,5 @@ else:
     plt.yscale('log')
     plt.xscale('log')
     plt.xlabel('T2, s')
-    plt.ylabel('T1,s')
+    plt.ylabel('T1, s')
     plt.show()
