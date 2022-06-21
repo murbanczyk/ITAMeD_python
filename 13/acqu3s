@@ -1,0 +1,23 @@
+##TITLE= Parameter file, TopSpin 3.5 pl 7
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 24	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmrsu
+$$ 2018-06-07 16:16:16.340 +0300  nmrsu@Ascend500
+$$ /opt/topspin/data/paakksan/Nanocellulose-1.0%_T1-T2_D/13/acqu3s
+$$ process /opt/topspin3.5pl7/prog/mod/go4
+##$ACQT0= 0
+##$BF1= 500.1
+##$FnMODE= 0
+##$NUC1= <1H>
+##$NusJSP= 0
+##$NusT2= 1
+##$NusTD= 16
+##$O1= 2350.47
+##$ProjAngle= 0
+##$SFO1= 500.10235047
+##$SW= 9.99795340953899
+##$SW_h= 5000
+##$TD= 16
+##END=

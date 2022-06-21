@@ -1,0 +1,18 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmrsu
+$$ /opt/topspin/data/paakksan/Nanocellulose-1.0%_T1-T2_D/13/audita.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2018-06-07 16:16:16.633 +0300>,<nmrsu>,<Ascend500>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2018-06-07 15:41:48.673 +0300,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       89 BA 30 6C 12 F7 66 4D C5 00 D1 E2 00 50 BB 0D
+       data hash MD5: 512 * 512 * 16
+       BF E5 30 59 85 76 53 41 BD 55 75 3C 2C D3 8B 86>)
+##END=
+
+$$ hash MD5
+$$ 3B 70 8A 67 60 9C F1 BA DE 5B 31 F4 4C 87 10 6D

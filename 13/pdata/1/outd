@@ -1,0 +1,16 @@
+##TITLE= Parameter file, TopSpin 3.5 pl 7
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 1	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmrsu
+$$ 2018-05-30 15:47:02.909 +0300  nmrsu@Ascend500
+$$ /opt/topspin/data/paakksan/Nanocellulose-1.0%_T1-T2_D/13/pdata/1/outd
+$$ process /opt/topspin3.5pl7/prog/mod/edparproc
+##$CURPLOT= <>
+##$CURPRIN= <$>
+##$DFORMAT= <normdp>
+##$LAYOUT= <+/1D_H.xwp>
+##$LFORMAT= <normlp>
+##$PFORMAT= <normpl>
+##END=

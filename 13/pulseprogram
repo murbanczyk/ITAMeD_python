@@ -1,0 +1,126 @@
+# 1 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt"
+;T1-T2 correlation experiment
+;T1 by inversion recovery
+;T2 measurement by cpmg sequence
+;note: works in digital mode. The effcts of Bruker's digital filtering not fully understood. Delay d15 compensates DF effects.
+
+;$OWNER=ahola
+# 1 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/Avance.incl" 1
+;Avance3aqs.incl
+;   for AV III with AQS IPSO
+;
+;avance-version (15/06/05)
+;
+;$CLASS=HighRes Incl
+;$COMMENT=
+
+# 170 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/Avance.incl"
+;$Id: Avance3aqs.incl,v 1.1.8.3 2015/03/05 16:46:54 ber Exp $
+# 7 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt" 2
+
+# 1 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/Grad.incl" 1
+;Grad2.incl  -  include file for Gradient Spectroscopy
+;   for TCU3
+;
+;avance-version (07/01/17)
+;
+;$CLASS=HighRes Incl
+;$COMMENT=
+
+# 27 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/Grad.incl"
+define list<gradient> EA=<EA>
+
+
+# 31 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/Grad.incl"
+;$Id: Grad2.incl,v 1.14 2012/01/31 17:49:21 ber Exp $
+# 8 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt" 2
+
+# 1 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/De.incl" 1
+;De2.incl
+;   for AVi
+;
+;avance-version (08/02/15)
+;
+;$CLASS=HighRes Incl
+;$COMMENT=
+
+# 10 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/De.incl"
+define delay rde1
+
+
+"rde1=de-de1"
+# 24 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/De.incl"
+;for multi receive
+
+
+# 33 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/De.incl"
+;$Id: De2.incl,v 1.8 2012/01/31 17:49:21 ber Exp $
+# 9 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt" 2
+
+
+define delay digtime
+        "digtime=dw*td"
+	      "d15 = 66*dw"
+        "d23 = d2 - de"
+				"d3= digtime/2 + d23 +de"
+        "d4 = d7/2 - p3/2 - p1/2 - d3 - d15"
+        "d5 = d7/2 - p3/2 - d23 - de - digtime/2 -d15"
+# 19 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt"
+				
+
+
+# 23 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt"
+;200u setnmr0|34|32|33 ctrlgrad 0
+
+
+start,          100u  st0    
+start1,         200u pl1:f1                                     ;power level on ch1
+# 29 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt"
+                d1																							;relaxation delay
+
+                p3:f1 ph1																				;hard invenrsion pulse
+                vd																							;variable recovery delay
+
+                p1 ph2                                          ;90 degree high power pulse
+                ;d16 grad {(0)|(0)|step(cnst20,10)}							;gradient ramp up
+                d3																							;delay for read dephase
+								d15																							;delay due to digital filtering compensation
+                ;d16 grad {(0)|(0)|(cnst20)-step(cnst20,10)}			;gradient ramp down
+                d4
+echo,           p3 ph3                                          ;180 degree high power pulse
+                d5																							;echo time compensation
+                ;d16 grad {(0)|(0)|step(cnst20,10)}							;gradient ramp up
+								d15																							;delay due to digital filtering compensation
+								d15																							;delay due to digital filtering compensation
+                d23  ;fq1:f1                                    ;frequency of acquisition
+                (rde1 sync de1 adc ph31 syrec) (1u 1u ph30:r):f1 (de)                            ; start receiving, takes DE
+                digtime cpdngs17:f1                            ; start acquisition
+                d2 st																						;gradient stabilization delay, move to next boot block in memory
+                ;d16 grad {(0)|(0)|(cnst20)-step(cnst20,10)}     ; gradient ramp down
+								d5                                              ;echo time compensation
+								lo to echo times nbl														;2D loop, td2 equals # of echoes
+                500u eoscnp                                     ; acquisition 
+                100u ipp1 ipp2 ipp3 ipp31                       ; phase increment
+                lo to start times ns                            ; in memory acquisition loop
+								100u wr #0 if #0 
+								10m ivd
+lo to start times l1
+# 59 "/opt/topspin3.5pl7/exp/stan/nmr/lists/pp/user/T1-T2_correlation.vvt"
+10u
+exit
+
+ph1 =  0 0 0 0 2 2 2 2                                  ;inversion pulse phase
+ph2 =  0 2 0 2                                          ;hard excitation pulse phase
+ph3 =  1 1 3 3                                          ;hard inversion pulse phase
+ph30 = 0                                                ;reference phase used by ACQ_START
+ph31 = 0 2 0 2                                          ;receiver phase used by ACQ_START
+
+;p1 : f1 channel -  90 degree high power pulse
+;p3 : f1 channel -  180 degree high power pulse
+;d1 : relaxation delay; 1-5 * T1
+;d2 : st delay
+;d4 : TE pad delay
+;d5 : TE pad delay
+;d16: gradient ramp delay
+;d15: delay due to digital filtering compensation
+;d7 : spin echo time
