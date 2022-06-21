@@ -65,18 +65,15 @@ def itamed2d(iter, diffusion_range, diffusion_range2, signal, b, b2, llambda, ex
     # Outputs:
     # * d_scale  - Vector of Diffusion coefficient of relaxation times for 1st dimension
     # * d_scale2  - Vector of Diffusion coefficient of relaxation times for 2nd dimension
-
     # * out_array - Result of ITAMeD ILT
 
     signal = np.matrix(signal)
     b = np.array(b)
     b2 = np.array(b2)
-
     d_scale = (np.logspace(np.log10(diffusion_range[0]),
                            np.log10(diffusion_range[1]), diffusion_range[2]))
     d_scale2 = (np.logspace(np.log10(diffusion_range2[0]),
                             np.log10(diffusion_range2[1]), diffusion_range2[2]))
-
     a = np.zeros([d_scale.shape[0], d_scale2.shape[0]])
     mat, mat2 = generate_matrix_2d(d_scale, d_scale2, b, b2, expclass, expclass2)
     out_array = fista(a, signal, llambda, mat, iter, False, 0, mat2)

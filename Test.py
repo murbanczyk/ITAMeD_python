@@ -1,4 +1,4 @@
-import processing.core as core
+import processing.core as itamed
 import matplotlib.pyplot as plt
 import nmrglue as ng
 import numpy as np
@@ -13,7 +13,6 @@ if test1d:
          0.6465, 0.6106, 0.5740, 0.5352, 0.4957, 0.4554, 0.4157, 0.3764, 0.3376, 0.3007, 0.2654, 0.2316,
          0.2004, 0.1711, 0.1437, 0.1198, 0.0973, 0.07674, 0.05967, 0.04383, 0.03195, 0.02219, 0.01445,
          0.008854, 0.005409, 0.002772, 0.001212]
-
     k = [27969939.3652834, 31868287.1823864, 36450117.0678576, 41492545.2225887, 47350942.7736749,
          54119378.5488770, 61712682.1230602, 70401336.6871577, 80512888.2044978, 91757502.9895481,
          104707503.700095, 119549333.057825, 136482993.255096, 155722045.954930, 177493612.291019,
@@ -27,19 +26,21 @@ if test1d:
          20577188836.9518, 23468067983.4087, 26781776623.5351, 30563061010.5362, 34859718278.5171,
          39817399741.5720, 45407969498.0644, 51797531063.6796, 59126580328.7680, 67495033642.8157,
          77009671837.3349, 87854578851.0945, 100239742861.620]
-
-    d, a = core.itamed1d(1e5, [1e-12, 3e-10, 1024], I, k, 1e-5, 'D')
+    d, a = itamed.itamed1d(1e4, [1e-11, 1e-9, 1024], I, k, 1e-5, 'D')
     plt.plot(d, a)
+    plt.xscale('log')
+    plt.xlabel('Diffusion  coefficients, m$^2$/s')
+    plt.ylabel('Intensity, a.u.')
     plt.show()
 else:
     dic, data = ng.bruker.read('T1T2')
-    data = data[:, 50:, 69:]
+    data = data[:, 51:, 70:]
     data = -np.real(np.trapz(data, axis=-1))
     t1delay = np.loadtxt('T1T2/vdlist')
     echotime = 0.002000000
     t2delays = np.arange(echotime, echotime * 512, echotime)
-    t2delays = t2delays[49:]
-    d1, d2, a = core.itamed2d(1e3, [1e-5, 20, 101], [1e-5, 20, 100], data, t1delay / 10, t2delays, 1e-4, 'T1', 'T2')
+    t2delays = t2delays[50:]
+    d1, d2, a = itamed.itamed2d(1e3, [1e-5, 20, 101], [1e-5, 20, 100], data, t1delay / 10, t2delays, 1e-4, 'T1', 'T2')
     plt.contour(d2, d1, a.T)
     plt.plot([1e-5, 20], [1e-5, 20])
     plt.yscale('log')
