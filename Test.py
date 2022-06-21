@@ -32,10 +32,10 @@ if test1d:
      plt.plot(d, a)
      plt.show()
 else:
-     dic,data=ng.bruker.read('13')
+     dic,data=ng.bruker.read('T1T1')
      data=data[:,50:,69:]
      data=-np.real(np.trapz(data,axis=-1))
-     t1delay = np.loadtxt('13/vdlist')
+     t1delay = np.loadtxt('T1T2/vdlist')
      echotime=0.002000000
      t2delays = np.arange(echotime, echotime*512, echotime)
      t2delays = t2delays[49:]
