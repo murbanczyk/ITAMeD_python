@@ -4,7 +4,7 @@ import nmrglue as ng
 import numpy as np
 
 # Change the flag test1d  to True to run example of 1D,  For 2D test keep it False
-test1d = False
+test1d = True
 
 if test1d:
     I = [1, 0.9999, 0.9986, 0.9985, 0.9980, 0.9962, 0.9947, 0.9934, 0.9927, 0.9914, 0.9884, 0.9862,
